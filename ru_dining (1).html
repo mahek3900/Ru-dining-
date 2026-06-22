@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RU Dining</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#cc0033;--red2:#a80028;--dark:#1a1a1a;--gray:#f7f7f9;--border:#e8e8f0;--text:#222;--sub:#6b7280;--card:#fff;--radius:14px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--text);padding-bottom:80px}
+
+/* TOP HEADER */
+.header{background:linear-gradient(135deg,var(--red),#ff2255);padding:18px 20px 14px;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(204,0,51,.35)}
+.header-inner{max-width:860px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
+.logo span{opacity:.8;font-weight:400;font-size:.9rem;margin-left:6px}
+.time-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 12px;font-size:.78rem;display:flex;align-items:center;gap:6px}
+#live-time{font-weight:700}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;cursor:pointer;transition:.2s;border:none;background:none;color:var(--sub);font-size:.6rem;gap:3px}
+.bn .icon{font-size:1.3rem;line-height:1}
+.bn.active{color:var(--red)}
+.bn.active .icon{transform:scale(1.1)}
+
+/* PAGES */
+.page{display:none;max-width:860px;margin:auto;padding:20px 14px}
+.page.active{display:block}
+
+/* SECTION TITLE */
+.sec-title{font-size:1.3rem;font-weight:800;margin-bottom:4px;color:var(--dark)}
+.sec-sub{font-size:.83rem;color:var(--sub);margin-bottom:18px}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:.2s;cursor:pointer;border:1px solid var(--border)}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.card-banner{height:100px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.card-body{padding:14px}
+.card-body h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.card-body p{font-size:.78rem;color:var(--sub);line-height:1.4}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+.status-open{background:#22c55e}
+.status-closed{background:#ef4444}
+.status-soon{background:#f59e0b}
+.status-label{font-size:.75rem;font-weight:600;display:flex;align-items:center;margin-top:8px}
+.status-label.open{color:#16a34a}
+.status-label.closed{color:#dc2626}
+.status-label.soon{color:#d97706}
+
+/* NOW OPEN BANNER */
+.open-banner{background:#fff;border-radius:var(--radius);padding:18px;margin-bottom:20px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.open-banner h3{font-size:.88rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.open-pills{display:flex;gap:8px;flex-wrap:wrap}
+.open-pill{display:flex;align-items:center;gap:7px;background:var(--gray);border-radius:30px;padding:7px 14px;font-size:.82rem;font-weight:600;border:1px solid var(--border)}
+.open-pill.open{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+.open-pill.closed{background:#fef2f2;border-color:#fecaca;color:#dc2626}
+.open-pill.soon{background:#fffbeb;border-color:#fde68a;color:#b45309}
+
+/* TABS */
+.tabs{display:flex;gap:6px;margin-bottom:18px;background:#fff;border-radius:var(--radius);padding:5px;border:1px solid var(--border)}
+.tab{flex:1;padding:9px 8px;border-radius:10px;border:none;color:var(--sub);background:none;cursor:pointer;font-size:.82rem;font-weight:600;transition:.2s;text-align:center}
+.tab.active{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(204,0,51,.3)}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.filter{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;transition:.2s;color:var(--sub)}
+.filter.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* MENU GRID */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+.menu-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:.2s}
+.menu-card:hover,.menu-card.selected{border-color:var(--red);box-shadow:0 2px 12px rgba(204,0,51,.12);background:#fff5f7}
+.menu-icon{font-size:2.6rem;margin-bottom:8px}
+.menu-card h4{font-size:.85rem;font-weight:700;margin-bottom:3px}
+.menu-card p{font-size:.75rem;color:var(--sub)}
+
+/* NUTRIENT */
+.nutrient-hero{background:linear-gradient(135deg,var(--red),#ff2255);border-radius:var(--radius);padding:22px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.nutrient-hero .big{font-size:3rem;font-weight:900}
+.nutrient-hero .label{font-size:.8rem;opacity:.8}
+.nutrient-macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.macro-box{background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid var(--border)}
+.macro-box .val{font-size:1.5rem;font-weight:800;color:var(--red)}
+.macro-box .lbl{font-size:.72rem;color:var(--sub);margin-top:2px}
+.nutrient-extra{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.nutrient-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.88rem}
+.nutrient-row:last-child{border:none}
+.nutrient-bar-wrap{flex:1;margin:0 14px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden}
+.nutrient-bar{height:100%;background:var(--red);border-radius:3px}
+.nutrient-val{font-weight:700;color:var(--red);min-width:50px;text-align:right}
+
+/* COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.compare-col{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:14px}
+.compare-col h4{font-size:.85rem;font-weight:700;margin-bottom:10px;color:var(--sub)}
+.compare-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:.8rem}
+.compare-row:last-child{border:none}
+.compare-row .better{color:#16a34a;font-weight:700}
+.compare-row .worse{color:#dc2626;font-weight:700}
+
+/* HOURS TABLE */
+.hours-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hours-table th{background:var(--red);color:#fff;padding:12px 14px;text-align:left;font-size:.82rem;font-weight:700}
+.hours-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:.82rem}
+.hours-table tr:last-child td{border:none}
+.hours-table tr.today td{background:#fff8f9;font-weight:700}
+.hours-table td.open-cell{color:#16a34a;font-weight:700}
+.hours-table td.closed-cell{color:#9ca3af}
+
+/* HISTORY */
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;transition:.2s}
+.history-item:hover{border-color:var(--red)}
+.history-left{display:flex;align-items:center;gap:12px}
+.history-icon{font-size:1.8rem;background:var(--gray);border-radius:10px;padding:8px;line-height:1}
+.history-info h4{font-size:.9rem;font-weight:700;margin-bottom:2px}
+.history-info p{font-size:.76rem;color:var(--sub)}
+.history-right{text-align:right}
+.history-right .swipe-badge{background:#fff5f7;color:var(--red);border:1px solid #fecdd3;border-radius:20px;padding:4px 10px;font-size:.75rem;font-weight:700}
+.history-right p{font-size:.72rem;color:var(--sub);margin-top:4px}
+.rate-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:.7rem;cursor:pointer;margin-top:4px;color:var(--sub);transition:.2s}
+.rate-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* USAGE */
+.usage-hero{background:linear-gradient(135deg,var(--red),#ff2255);border-radius:var(--radius);padding:22px;color:#fff;margin-bottom:18px}
+.usage-hero h3{font-size:.85rem;opacity:.85;margin-bottom:4px}
+.usage-fraction{font-size:3rem;font-weight:900;line-height:1}
+.usage-fraction span{font-size:1.2rem;opacity:.7}
+.usage-progress{background:rgba(255,255,255,.25);border-radius:10px;height:12px;margin:14px 0 6px;overflow:hidden}
+.usage-progress-fill{height:100%;background:#fff;border-radius:10px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.usage-meta{display:flex;justify-content:space-between;font-size:.78rem;opacity:.8}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+.stat-box{background:#fff;border-radius:var(--radius);padding:16px;border:1px solid var(--border);text-align:center}
+.stat-box .num{font-size:2rem;font-weight:900;color:var(--red)}
+.stat-box p{font-size:.76rem;color:var(--sub);margin-top:3px}
+.hall-usage{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
+.hall-row{padding:14px 16px;border-bottom:1px solid var(--border)}
+.hall-row:last-child{border:none}
+.hall-row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.hall-name{font-size:.88rem;font-weight:700}
+.hall-count{font-size:.78rem;color:var(--sub)}
+.usage-bar{background:var(--gray);border-radius:10px;height:10px;overflow:hidden}
+.usage-fill{height:100%;border-radius:10px;transition:width .8s}
+.alert-box{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.alert-box .icon{font-size:1.2rem}
+.alert-box p{font-size:.82rem;color:#92400e;line-height:1.4}
+
+/* CALENDAR VIEW */
+.week-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:18px}
+.day-cell{background:#fff;border-radius:10px;padding:10px 4px;text-align:center;border:1px solid var(--border);font-size:.7rem}
+.day-cell .day-name{color:var(--sub);font-weight:600;margin-bottom:6px}
+.day-cell .day-dot{width:8px;height:8px;border-radius:50%;margin:2px auto}
+.day-cell .day-dot.swiped{background:var(--red)}
+.day-cell .day-dot.none{background:var(--border)}
+.day-cell.today-cell{border-color:var(--red);background:#fff5f7}
+
+/* CONTACT */
+.contact-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
+.contact-row{display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--border)}
+.contact-row:last-child{border:none}
+.contact-icon-box{width:40px;height:40px;background:var(--gray);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-info strong{display:block;font-size:.88rem;margin-bottom:2px}
+.contact-info span{font-size:.78rem;color:var(--sub)}
+.btn-red{background:var(--red);color:#fff;border:none;padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700;transition:.2s}
+.btn-red:hover{background:var(--red2)}
+.btn-outline{background:#fff;color:var(--red);border:2px solid var(--red);padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700;transition:.2s}
+.btn-outline:hover{background:#fff5f7}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:700;margin-right:4px;margin-top:5px}
+.tag.green{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.tag.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.tag.orange{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa}
+.divider{height:1px;background:var(--border);margin:18px 0}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">🍽 RU Dining <span>Rutgers University</span></div>
+    <div class="time-badge">🕐 <span id="live-time"></span></div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="open-banner">
+    <h3>⚡ What's Open Right Now</h3>
+    <div class="open-pills" id="open-pills"></div>
+  </div>
+  <div class="sec-title">Dining Halls</div>
+  <div class="sec-sub">Tap a hall to explore its menu and hours</div>
+  <div class="cards" id="hall-cards"></div>
+</div>
+
+<!-- MEAL TYPES -->
+<div id="meal" class="page">
+  <div class="sec-title">Meal Types</div>
+  <div class="sec-sub">Browse by time of day and dietary preference</div>
+  <div class="tabs">
+    <button class="tab active" onclick="setMeal('breakfast',this)">🌅 Breakfast</button>
+    <button class="tab" onclick="setMeal('lunch',this)">☀️ Lunch</button>
+    <button class="tab" onclick="setMeal('dinner',this)">🌙 Dinner</button>
+  </div>
+  <div class="filters">
+    <button class="filter active" onclick="toggleFilter(this,'all')">All</button>
+    <button class="filter" onclick="toggleFilter(this,'vegan')">🌱 Vegan</button>
+    <button class="filter" onclick="toggleFilter(this,'gluten-free')">🌾 Gluten-Free</button>
+    <button class="filter" onclick="toggleFilter(this,'dairy-free')">🥛 Dairy-Free</button>
+  </div>
+  <div id="meal-cards" class="cards"></div>
+</div>
+
+<!-- MENU ITEMS -->
+<div id="menu" class="page">
+  <div class="sec-title">Menu Items</div>
+  <div class="sec-sub">Select an item to view nutrition details below</div>
+  <div id="menu-grid" class="menu-grid"></div>
+  <div id="menu-nutrient" style="margin-top:20px"></div>
+</div>
+
+<!-- NUTRIENTS -->
+<div id="nutrient" class="page">
+  <div class="sec-title">Nutrition Info</div>
+  <div class="sec-sub">Detailed breakdown & side-by-side comparison</div>
+  <div class="tabs" style="margin-bottom:12px">
+    <button class="tab active" onclick="setNMode('single',this)">Single Item</button>
+    <button class="tab" onclick="setNMode('compare',this)">Compare 2 Items</button>
+  </div>
+  <div id="n-single">
+    <div class="filters" id="nutrient-filters" style="margin-bottom:16px"></div>
+    <div id="nutrient-display"></div>
+  </div>
+  <div id="n-compare" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div>
+        <div class="sec-sub" style="margin-bottom:6px">Item A</div>
+        <div class="filters" id="cmp-a-filters" style="flex-direction:column;gap:5px"></div>
+      </div>
+      <div>
+        <div class="sec-sub" style="margin-bottom:6px">Item B</div>
+        <div class="filters" id="cmp-b-filters" style="flex-direction:column;gap:5px"></div>
+      </div>
+    </div>
+    <div id="compare-display"></div>
+  </div>
+</div>
+
+<!-- HOURS -->
+<div id="hours" class="page">
+  <div class="sec-title">Opening Hours</div>
+  <div class="sec-sub">Today is highlighted — all times are EST</div>
+  <table class="hours-table">
+    <thead><tr><th>Day</th><th>Busch</th><th>Livingston</th><th>Cook/Douglass</th></tr></thead>
+    <tbody id="hours-body"></tbody>
+  </table>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="page">
+  <div class="sec-title">Swipe History</div>
+  <div class="sec-sub">Your recent dining hall visits</div>
+  <div id="history-list"></div>
+</div>
+
+<!-- USAGE -->
+<div id="usage" class="page">
+  <div class="usage-hero">
+    <h3>Weekly Swipes Used</h3>
+    <div class="usage-fraction">10 <span>/ 16</span></div>
+    <div class="usage-progress"><div class="usage-progress-fill" id="main-prog" style="width:0%"></div></div>
+    <div class="usage-meta"><span>62% used</span><span>6 remaining</span></div>
+  </div>
+  <div id="low-alert"></div>
+  <div class="sec-title" style="margin-bottom:12px">Weekly Calendar</div>
+  <div class="week-cal" id="week-cal"></div>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="num">10</div><p>Swipes Used</p></div>
+    <div class="stat-box"><div class="num">6</div><p>Remaining</p></div>
+    <div class="stat-box"><div class="num">3</div><p>This Week</p></div>
+    <div class="stat-box"><div class="num">42</div><p>Semester Total</p></div>
+  </div>
+  <div class="sec-title" style="margin-bottom:12px">By Dining Hall</div>
+  <div class="hall-usage" id="hall-usage"></div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <div class="sec-title">Contact & Help</div>
+  <div class="sec-sub">We're here to help — reach out anytime</div>
+  <div class="contact-card">
+    <div class="contact-row"><div class="contact-icon-box">📧</div><div class="contact-info"><strong>Email Us</strong><span>dining@rutgers.edu</span></div></div>
+    <div class="contact-row"><div class="contact-icon-box">📞</div><div class="contact-info"><strong>Phone</strong><span>(848) 932-8000</span></div></div>
+    <div class="contact-row"><div class="contact-icon-box">📍</div><div class="contact-info"><strong>Main Office</strong><span>Brower Commons, College Ave, New Brunswick</span></div></div>
+    <div class="contact-row"><div class="contact-icon-box">🕐</div><div class="contact-info"><strong>Office Hours</strong><span>Mon–Fri: 9 AM – 5 PM</span></div></div>
+  </div>
+  <div class="contact-card" style="padding:18px">
+    <strong style="display:block;margin-bottom:8px">Need More Info?</strong>
+    <p style="font-size:.85rem;color:var(--sub);line-height:1.6;margin-bottom:14px">Visit Rutgers Dining Services for full menus, allergen info, and dining plan details. Submit feedback through the student portal.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn-red">🌐 Visit Website</button>
+      <button class="btn-outline">📝 Submit Feedback</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bn active" onclick="show('home',this)"><span class="icon">🏠</span>Home</button>
+  <button class="bn" onclick="show('meal',this)"><span class="icon">🍽</span>Meals</button>
+  <button class="bn" onclick="show('menu',this)"><span class="icon">📋</span>Menu</button>
+  <button class="bn" onclick="show('nutrient',this)"><span class="icon">🥦</span>Nutrition</button>
+  <button class="bn" onclick="show('hours',this)"><span class="icon">🕐</span>Hours</button>
+  <button class="bn" onclick="show('history',this)"><span class="icon">📜</span>History</button>
+  <button class="bn" onclick="show('usage',this)"><span class="icon">📊</span>Usage</button>
+  <button class="bn" onclick="show('contact',this)"><span class="icon">💬</span>Help</button>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const halls = [
+  {name:'Busch Dining Hall', icon:'🏫', color:'#cc0033',
+   hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
+  {name:'Livingston Dining', icon:'🏛', color:'#e63950',
+   hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
+  {name:'Cook / Douglass',   icon:'🌿', color:'#ff6685',
+   hours:{0:null,1:[8,20],2:[8,20],3:[8,20],4:[8,20],5:[8,20],6:null}},
+];
+
+const nutrients = {
+  pizza:   {name:'Pizza',    icon:'🍕', cal:285, protein:12, carbs:34, fat:11, fiber:2,  sodium:620},
+  noodles: {name:'Noodles',  icon:'🍜', cal:210, protein:8,  carbs:40, fat:3,  fiber:3,  sodium:480},
+  pasta:   {name:'Pasta',    icon:'🍝', cal:320, protein:14, carbs:52, fat:7,  fiber:4,  sodium:390},
+  chili:   {name:'Chili',    icon:'🌶', cal:250, protein:18, carbs:28, fat:6,  fiber:8,  sodium:710},
+  salad:   {name:'Salad',    icon:'🥗', cal:180, protein:6,  carbs:14, fat:10, fiber:5,  sodium:220},
+  burger:  {name:'Burger',   icon:'🍔', cal:520, protein:28, carbs:44, fat:26, fiber:2,  sodium:890},
+  chicken: {name:'Chicken',  icon:'🍗', cal:340, protein:38, carbs:4,  fat:14, fiber:0,  sodium:510},
+  salmon:  {name:'Salmon',   icon:'🍣', cal:290, protein:34, carbs:0,  fat:16, fiber:0,  sodium:380},
+};
+
+const mealData = {
+  breakfast:[
+    {icon:'🥞',name:'Pancakes',  tags:['vegan','dairy-free'],    desc:'Fluffy buttermilk pancakes', cal:240},
+    {icon:'🥚',name:'Scrambled Eggs',tags:[],                   desc:'Fresh farm eggs, seasoned',  cal:180},
+    {icon:'🥣',name:'Oatmeal',   tags:['vegan','gluten-free','dairy-free'],desc:'Steel-cut oats',  cal:150},
+    {icon:'🧇',name:'Waffles',   tags:[],                        desc:'Belgian-style waffles',      cal:270},
+    {icon:'🍌',name:'Fresh Fruit',tags:['vegan','gluten-free','dairy-free'],desc:'Seasonal selection',cal:80},
+    {icon:'🥐',name:'Croissant', tags:['dairy-free'],             desc:'Buttery flaky croissant',   cal:230},
+  ],
+  lunch:[
+    {icon:'🍕',name:'Pizza',      tags:[],                        desc:'Margherita & pepperoni',    cal:285},
+    {icon:'🍔',name:'Burger',     tags:[],                        desc:'Classic beef burger',        cal:520},
+    {icon:'🥗',name:'Garden Salad',tags:['vegan','gluten-free','dairy-free'],desc:'Fresh mixed greens',cal:180},
+    {icon:'🌮',name:'Tacos',      tags:['gluten-free'],           desc:'Beef or veggie tacos',       cal:290},
+    {icon:'🍜',name:'Noodle Stir Fry',tags:['vegan','dairy-free'],desc:'Asian stir fried noodles',  cal:210},
+    {icon:'🥙',name:'Falafel Wrap',tags:['vegan','dairy-free'],   desc:'Crispy falafel, hummus',     cal:380},
+  ],
+  dinner:[
+    {icon:'🍝',name:'Pasta Primavera',tags:['vegan','dairy-free'],desc:'Seasonal veg & marinara',  cal:320},
+    {icon:'🌶',name:'Chili',       tags:['gluten-free'],          desc:'Hearty beef & bean chili',  cal:250},
+    {icon:'🍗',name:'Roast Chicken',tags:['gluten-free','dairy-free'],desc:'Herb-roasted breast',   cal:340},
+    {icon:'🥦',name:'Stir-fry Veg',tags:['vegan','gluten-free','dairy-free'],desc:'Mixed veg',      cal:130},
+    {icon:'🍣',name:'Salmon',      tags:['gluten-free','dairy-free'],desc:'Baked Atlantic salmon',  cal:290},
+    {icon:'🥘',name:'Lentil Soup', tags:['vegan','gluten-free','dairy-free'],desc:'Spiced red lentil',cal:170},
+  ]
+};
+
+const historyData = [
+  {hall:'Busch',      icon:'🏫', meal:'Lunch',     time:'12:40 PM', day:'Monday',    rated:false},
+  {hall:'Livingston', icon:'🏛', meal:'Breakfast', time:'10:00 AM', day:'Monday',    rated:true},
+  {hall:'Busch',      icon:'🏫', meal:'Dinner',    time:'6:30 PM',  day:'Saturday',  rated:false},
+  {hall:'Cook/Doug',  icon:'🌿', meal:'Lunch',     time:'1:00 PM',  day:'Friday',    rated:true},
+  {hall:'Busch',      icon:'🏫', meal:'Breakfast', time:'8:15 AM',  day:'Thursday',  rated:false},
+  {hall:'Livingston', icon:'🏛', meal:'Dinner',    time:'7:00 PM',  day:'Wednesday', rated:false},
+];
+
+const daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const daysFull  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const hoursData = [
+  {day:'Sunday',    busch:'9 AM – 9 PM',  liv:'9 AM – 9 PM',  cook:'Closed'},
+  {day:'Monday',    busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Tuesday',   busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Wednesday', busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Thursday',  busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Friday',    busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Saturday',  busch:'9 AM – 8 PM',  liv:'9 AM – 8 PM',  cook:'Closed'},
+];
+
+// ── HELPERS ───────────────────────────────────────────
+function getStatus(hall) {
+  const now = new Date();
+  const h = now.getHours() + now.getMinutes()/60;
+  const day = now.getDay();
+  const range = hall.hours[day];
+  if (!range) return 'closed';
+  if (h >= range[0] && h < range[1]) return 'open';
+  if (h < range[0] && range[0]-h <= 1) return 'soon';
+  return 'closed';
+}
+
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ── LIVE CLOCK ────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('live-time').textContent =
+    now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+setInterval(updateClock,1000); updateClock();
+
+// ── HOME ──────────────────────────────────────────────
+function renderHome() {
+  // Pills
+  const pills = document.getElementById('open-pills');
+  pills.innerHTML = halls.map(h=>{
+    const s = getStatus(h);
+    const label = s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';
+    return `<div class="open-pill ${s}">${h.icon} ${h.name} · ${label}</div>`;
+  }).join('');
+
+  // Hall cards
+  const colors = ['#ffecef','#fff0f3','#fff5f7'];
+  document.getElementById('hall-cards').innerHTML = halls.map((h,i)=>{
+    const s = getStatus(h);
+    const sLabel = s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';
+    return `<div class="card" onclick="show('hours',document.querySelectorAll('.bn')[4])">
+      <div class="card-banner" style="background:${colors[i]}">${h.icon}</div>
+      <div class="card-body">
+        <h3>${h.name}</h3>
+        <p>${h.hours[new Date().getDay()]?`${h.hours[new Date().getDay()][0]}:00 – closes ${h.hours[new Date().getDay()][1]}:00`:'Closed today'}</p>
+        <div class="status-label ${s}"><span class="status-dot status-${s}"></span>${sLabel}</div>
+      </div></div>`;
+  }).join('');
+}
+
+// ── MEAL TYPES ────────────────────────────────────────
+let currentMeal = 'breakfast', activeFilters = [];
+function setMeal(type,btn) {
+  currentMeal = type;
+  document.querySelectorAll('#meal .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); renderMeal();
+}
+function toggleFilter(btn,key) {
+  if (key==='all') {
+    activeFilters=[];
+    document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));
+    btn.classList.add('active');
+  } else {
+    document.querySelector('.filter').classList.remove('active');
+    btn.classList.toggle('active');
+    if (btn.classList.contains('active')) activeFilters.push(key);
+    else activeFilters = activeFilters.filter(f=>f!==key);
+  }
+  renderMeal();
+}
+function renderMeal() {
+  let items = mealData[currentMeal];
+  if (activeFilters.length) items = items.filter(i=>activeFilters.every(f=>i.tags.includes(f)));
+  document.getElementById('meal-cards').innerHTML = items.map(i=>`
+    <div class="card">
+      <div class="card-banner" style="background:#fff8f9;font-size:2.8rem">${i.icon}</div>
+      <div class="card-body">
+        <h3>${i.name}</h3>
+        <p>${i.desc} · <strong>${i.cal} kcal</strong></p>
+        <div>${i.tags.map(t=>`<span class="tag green">${t}</span>`).join('')}</div>
+      </div></div>`).join('')||'<p style="color:var(--sub);padding:20px">No items match filters.</p>';
+}
+
+// ── MENU ──────────────────────────────────────────────
+let selectedMenu = 'pizza';
+function renderMenuPage() {
+  const keys = Object.keys(nutrients);
+  document.getElementById('menu-grid').innerHTML = keys.map(k=>`
+    <div class="menu-card ${k===selectedMenu?'selected':''}" onclick="selectMenu('${k}',this)">
+      <div class="menu-icon">${nutrients[k].icon}</div>
+      <h4>${nutrients[k].name}</h4>
+      <p>${nutrients[k].cal} kcal</p>
+    </div>`).join('');
+  renderMenuNutrient();
+}
+function selectMenu(k,el) {
+  selectedMenu=k;
+  document.querySelectorAll('.menu-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  renderMenuNutrient();
+}
+function renderMenuNutrient() {
+  document.getElementById('menu-nutrient').innerHTML = buildNutrientCard(nutrients[selectedMenu]);
+}
+
+// ── NUTRITION ─────────────────────────────────────────
+let currentN='pizza', cmpA='pizza', cmpB='burger', nMode='single';
+
+function buildNutrientCard(n) {
+  const maxes = {cal:600,protein:40,carbs:60,fat:30,fiber:10,sodium:1000};
+  return `
+    <div class="nutrient-hero">
+      <div><div style="font-size:1rem;opacity:.8">${n.name} ${n.icon}</div><div class="big">${n.cal}</div><div class="label">kcal per serving</div></div>
+      <div style="font-size:4rem">${n.icon}</div>
+    </div>
+    <div class="nutrient-macro-grid">
+      <div class="macro-box"><div class="val">${n.protein}g</div><div class="lbl">Protein</div></div>
+      <div class="macro-box"><div class="val">${n.carbs}g</div><div class="lbl">Carbs</div></div>
+      <div class="macro-box"><div class="val">${n.fat}g</div><div class="lbl">Fat</div></div>
+    </div>
+    <div class="nutrient-extra">
+      ${[['Calories','kcal',n.cal,maxes.cal],['Dietary Fiber','g',n.fiber,maxes.fiber],['Sodium','mg',n.sodium,maxes.sodium]]
+        .map(([l,u,v,m])=>`<div class="nutrient-row">
+          <span style="min-width:110px;font-size:.82rem">${l}</span>
+          <div class="nutrient-bar-wrap"><div class="nutrient-bar" style="width:${Math.min(100,v/m*100)}%"></div></div>
+          <span class="nutrient-val">${v}${u}</span></div>`).join('')}
+    </div>`;
+}
+
+function setNMode(mode,btn) {
+  nMode=mode;
+  document.querySelectorAll('#nutrient .tabs .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('n-single').style.display = mode==='single'?'block':'none';
+  document.getElementById('n-compare').style.display = mode==='compare'?'block':'none';
+  if (mode==='compare') renderCompare();
+}
+
+function renderNutrientPage() {
+  const keys = Object.keys(nutrients);
+  document.getElementById('nutrient-filters').innerHTML = keys.map(k=>`
+    <button class="filter ${k===currentN?'active':''}" onclick="setNutrient('${k}',this)">${nutrients[k].icon} ${nutrients[k].name}</button>`).join('');
+  document.getElementById('nutrient-display').innerHTML = buildNutrientCard(nutrients[currentN]);
+
+  // Compare selectors
+  ['a','b'].forEach(side=>{
+    document.getElementById(`cmp-${side}-filters`).innerHTML = keys.map(k=>{
+      const sel = side==='a'?cmpA:cmpB;
+      return `<button class="filter ${k===sel?'active':''}" style="font-size:.75rem;padding:5px 10px" onclick="setCmp('${side}','${k}',this)">${nutrients[k].icon} ${nutrients[k].name}</button>`;
+    }).join('');
+  });
+}
+function setNutrient(k,btn) {
+  currentN=k;
+  document.querySelectorAll('#nutrient-filters .filter').forEach(f=>f.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('nutrient-display').innerHTML = buildNutrientCard(nutrients[k]);
+}
+function setCmp(side,k,btn) {
+  if(side==='a') cmpA=k; else cmpB=k;
+  document.querySelectorAll(`#cmp-${side}-filters .filter`).forEach(f=>f.classList.remove('active'));
+  btn.classList.add('active');
+  renderCompare();
+}
+function renderCompare() {
+  const a=nutrients[cmpA],b=nutrients[cmpB];
+  const fields=[['cal','Calories','kcal',false],['protein','Protein','g',true],['carbs','Carbs','g',false],['fat','Fat','g',false],['fiber','Fiber','g',true],['sodium','Sodium','mg',false]];
+  document.getElementById('compare-display').innerHTML=`
+    <div class="compare-grid">
+      <div class="compare-col"><h4>${a.icon} ${a.name}</h4>
+        ${fields.map(([f,l,u,higher])=>{
+          const win = higher?(a[f]>=b[f]):(a[f]<=b[f]);
+          return `<div class="compare-row"><span>${l}</span><span class="${win?'better':'worse'}">${a[f]}${u}</span></div>`;
+        }).join('')}
+      </div>
+      <div class="compare-col"><h4>${b.icon} ${b.name}</h4>
+        ${fields.map(([f,l,u,higher])=>{
+          const win = higher?(b[f]>=a[f]):(b[f]<=a[f]);
+          return `<div class="compare-row"><span>${l}</span><span class="${win?'better':'worse'}">${b[f]}${u}</span></div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+// ── HOURS ─────────────────────────────────────────────
+function renderHours() {
+  const today = new Date().getDay();
+  document.getElementById('hours-body').innerHTML = hoursData.map((r,i)=>{
+    const isToday = i===today;
+    const cc = (v)=> v==='Closed'?'closed-cell':'open-cell';
+    return `<tr class="${isToday?'today-cell':''}">
+      <td>${r.day}${isToday?' 📍':''}</td>
+      <td class="${cc(r.busch)}">${r.busch}</td>
+      <td class="${cc(r.liv)}">${r.liv}</td>
+      <td class="${cc(r.cook)}">${r.cook}</td></tr>`;
+  }).join('');
+}
+
+// ── HISTORY ───────────────────────────────────────────
+function renderHistory() {
+  document.getElementById('history-list').innerHTML = historyData.map((h,i)=>`
+    <div class="history-item">
+      <div class="history-left">
+        <div class="history-icon">${h.icon}</div>
+        <div class="history-info"><h4>${h.hall}</h4><p>${h.day} · ${h.meal} · ${h.time}</p></div>
+      </div>
+      <div class="history-right">
+        <div class="swipe-badge">1 Swipe</div>
+        <p>${h.meal}</p>
+        ${h.rated?'<div style="font-size:.72rem;color:#f59e0b">⭐ Rated</div>':`<button class="rate-btn" onclick="rateItem(${i},this)">⭐ Rate</button>`}
+      </div>
+    </div>`).join('');
+}
+function rateItem(i,btn) {
+  historyData[i].rated=true;
+  btn.outerHTML='<div style="font-size:.72rem;color:#f59e0b">⭐ Rated</div>';
+}
+
+// ── USAGE ─────────────────────────────────────────────
+function renderUsage() {
+  setTimeout(()=>{document.getElementById('main-prog').style.width='62%'},100);
+
+  // Low swipe alert
+  const remaining=6, total=16;
+  document.getElementById('low-alert').innerHTML = remaining/total < 0.4 ?
+    `<div class="alert-box"><span class="icon">⚠️</span><p>You're running low on swipes — only <strong>${remaining}</strong> left this week. Consider reducing visits or contacting dining services.</p></div>` : '';
+
+  // Week calendar
+  const swipedDays=[1,3,4];
+  const today=new Date().getDay();
+  document.getElementById('week-cal').innerHTML = daysShort.map((d,i)=>`
+    <div class="day-cell ${i===today?'today-cell':''}">
+      <div class="day-name">${d}</div>
+      <div class="day-dot ${swipedDays.includes(i)?'swiped':'none'}"></div>
+    </div>`).join('');
+
+  // Hall bars
+  const hallStats=[{name:'Busch',icon:'🏫',used:18,total:24,color:'#cc0033'},{name:'Livingston',icon:'🏛',used:14,total:24,color:'#e63950'},{name:'Cook/Douglass',icon:'🌿',used:10,total:24,color:'#ff6685'}];
+  document.getElementById('hall-usage').innerHTML = hallStats.map(h=>`
+    <div class="hall-row">
+      <div class="hall-row-top">
+        <span class="hall-name">${h.icon} ${h.name}</span>
+        <span class="hall-count">${h.used} / ${h.total} visits</span>
+      </div>
+      <div class="usage-bar"><div class="usage-fill" style="width:0%;background:${h.color}" data-w="${Math.round(h.used/h.total*100)}"></div></div>
+    </div>`).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.usage-fill').forEach(el=>{el.style.width=el.dataset.w+'%'});
+  },120);
+}
+
+// ── INIT ──────────────────────────────────────────────
+renderHome(); renderMeal(); renderMenuPage();
+renderNutrientPage(); renderHours(); renderHistory(); renderUsage();
+</script>
+</body>
+</html>
