@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<parameter name="content"><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>RU Dining</title>
 <style>
@@ -9,7 +13,6 @@
 :root{--red:#cc0033;--red2:#a80028;--dark:#1a1a1a;--gray:#f7f7f9;--border:#e8e8f0;--text:#222;--sub:#6b7280;--card:#fff;--radius:14px}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--text);padding-bottom:80px}
 
-/* TOP HEADER */
 .header{background:linear-gradient(135deg,var(--red),#ff2255);padding:18px 20px 14px;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(204,0,51,.35)}
 .header-inner{max-width:860px;margin:auto;display:flex;align-items:center;justify-content:space-between}
 .logo{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
@@ -17,99 +20,107 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
 .time-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 12px;font-size:.78rem;display:flex;align-items:center;gap:6px}
 #live-time{font-weight:700}
 
-/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
 .bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;cursor:pointer;transition:.2s;border:none;background:none;color:var(--sub);font-size:.6rem;gap:3px}
 .bn .icon{font-size:1.3rem;line-height:1}
 .bn.active{color:var(--red)}
 .bn.active .icon{transform:scale(1.1)}
 
-/* PAGES */
 .page{display:none;max-width:860px;margin:auto;padding:20px 14px}
 .page.active{display:block}
-
-/* SECTION TITLE */
 .sec-title{font-size:1.3rem;font-weight:800;margin-bottom:4px;color:var(--dark)}
 .sec-sub{font-size:.83rem;color:var(--sub);margin-bottom:18px}
 
-/* CARDS */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
 .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:.2s;cursor:pointer;border:1px solid var(--border)}
 .card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
-.card-banner{height:100px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.card-banner{height:100px;display:flex;align-items:center;justify-content:center;font-size:3rem}
 .card-body{padding:14px}
 .card-body h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
 .card-body p{font-size:.78rem;color:var(--sub);line-height:1.4}
 .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
-.status-open{background:#22c55e}
-.status-closed{background:#ef4444}
-.status-soon{background:#f59e0b}
+.status-open{background:#22c55e}.status-closed{background:#ef4444}.status-soon{background:#f59e0b}
 .status-label{font-size:.75rem;font-weight:600;display:flex;align-items:center;margin-top:8px}
-.status-label.open{color:#16a34a}
-.status-label.closed{color:#dc2626}
-.status-label.soon{color:#d97706}
+.status-label.open{color:#16a34a}.status-label.closed{color:#dc2626}.status-label.soon{color:#d97706}
 
-/* NOW OPEN BANNER */
 .open-banner{background:#fff;border-radius:var(--radius);padding:18px;margin-bottom:20px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .open-banner h3{font-size:.88rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .open-pills{display:flex;gap:8px;flex-wrap:wrap}
-.open-pill{display:flex;align-items:center;gap:7px;background:var(--gray);border-radius:30px;padding:7px 14px;font-size:.82rem;font-weight:600;border:1px solid var(--border)}
+.open-pill{display:flex;align-items:center;gap:7px;border-radius:30px;padding:7px 14px;font-size:.82rem;font-weight:600;border:1px solid}
 .open-pill.open{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
 .open-pill.closed{background:#fef2f2;border-color:#fecaca;color:#dc2626}
 .open-pill.soon{background:#fffbeb;border-color:#fde68a;color:#b45309}
 
-/* TABS */
 .tabs{display:flex;gap:6px;margin-bottom:18px;background:#fff;border-radius:var(--radius);padding:5px;border:1px solid var(--border)}
 .tab{flex:1;padding:9px 8px;border-radius:10px;border:none;color:var(--sub);background:none;cursor:pointer;font-size:.82rem;font-weight:600;transition:.2s;text-align:center}
 .tab.active{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(204,0,51,.3)}
-
-/* FILTERS */
 .filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .filter{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;transition:.2s;color:var(--sub)}
 .filter.active{background:var(--dark);color:#fff;border-color:var(--dark)}
 
-/* MENU GRID */
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
-.menu-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:.2s}
-.menu-card:hover,.menu-card.selected{border-color:var(--red);box-shadow:0 2px 12px rgba(204,0,51,.12);background:#fff5f7}
-.menu-icon{font-size:2.6rem;margin-bottom:8px}
-.menu-card h4{font-size:.85rem;font-weight:700;margin-bottom:3px}
-.menu-card p{font-size:.75rem;color:var(--sub)}
+.meal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.meal-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:.2s}
+.meal-card:hover,.meal-card.selected{border-color:var(--red);box-shadow:0 4px 14px rgba(204,0,51,.12);transform:translateY(-2px)}
+.meal-card.selected{background:#fff5f7}
+.meal-icon{font-size:2.6rem;margin-bottom:8px}
+.meal-card h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.meal-card .cal{font-size:.75rem;color:var(--sub);margin-bottom:5px}
+.meal-card .tags{display:flex;gap:3px;flex-wrap:wrap;justify-content:center}
 
-/* NUTRIENT */
+.item-panel{background:#fff;border-radius:var(--radius);border:1px solid var(--border);margin-top:18px;overflow:hidden;animation:slideUp .25s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.item-panel-hero{background:linear-gradient(135deg,var(--red),#ff2255);padding:22px;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.item-panel-hero .info h2{font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.item-panel-hero .info p{font-size:.82rem;opacity:.85}
+.item-panel-hero .big-icon{font-size:3.5rem}
+.item-panel-body{padding:18px}
+.panel-section{margin-bottom:18px}
+.panel-section h4{font-size:.78rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.macro-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.macro-box{background:var(--gray);border-radius:10px;padding:12px;text-align:center}
+.macro-box .val{font-size:1.4rem;font-weight:800;color:var(--red)}
+.macro-box .lbl{font-size:.7rem;color:var(--sub);margin-top:2px}
+.nutrient-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.8rem}
+.nutrient-bar-row .lbl{min-width:80px;color:var(--sub)}
+.bar-wrap{flex:1;height:8px;background:var(--gray);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;background:var(--red);border-radius:4px}
+.nutrient-bar-row .val{min-width:45px;text-align:right;font-weight:700}
+.ingredient-list{display:flex;flex-wrap:wrap;gap:6px}
+.ingredient-pill{background:var(--gray);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:.78rem}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.68rem;font-weight:700;margin-right:4px}
+.tag.green{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+
+.n-filter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:16px}
+.n-filter-btn{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:.2s;font-size:.78rem;font-weight:600}
+.n-filter-btn:hover,.n-filter-btn.active{border-color:var(--red);background:#fff5f7;color:var(--red)}
+.n-filter-btn .fi{font-size:1.4rem;display:block;margin-bottom:3px}
 .nutrient-hero{background:linear-gradient(135deg,var(--red),#ff2255);border-radius:var(--radius);padding:22px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
 .nutrient-hero .big{font-size:3rem;font-weight:900}
 .nutrient-hero .label{font-size:.8rem;opacity:.8}
 .nutrient-macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.macro-box{background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid var(--border)}
-.macro-box .val{font-size:1.5rem;font-weight:800;color:var(--red)}
-.macro-box .lbl{font-size:.72rem;color:var(--sub);margin-top:2px}
+.macro-box2{background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid var(--border)}
+.macro-box2 .val{font-size:1.5rem;font-weight:800;color:var(--red)}
+.macro-box2 .lbl{font-size:.72rem;color:var(--sub);margin-top:2px}
 .nutrient-extra{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
 .nutrient-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.88rem}
 .nutrient-row:last-child{border:none}
 .nutrient-bar-wrap{flex:1;margin:0 14px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden}
 .nutrient-bar{height:100%;background:var(--red);border-radius:3px}
 .nutrient-val{font-weight:700;color:var(--red);min-width:50px;text-align:right}
-
-/* COMPARE */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .compare-col{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:14px}
 .compare-col h4{font-size:.85rem;font-weight:700;margin-bottom:10px;color:var(--sub)}
 .compare-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:.8rem}
 .compare-row:last-child{border:none}
-.compare-row .better{color:#16a34a;font-weight:700}
-.compare-row .worse{color:#dc2626;font-weight:700}
+.better{color:#16a34a;font-weight:700}.worse{color:#dc2626;font-weight:700}
 
-/* HOURS TABLE */
 .hours-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .hours-table th{background:var(--red);color:#fff;padding:12px 14px;text-align:left;font-size:.82rem;font-weight:700}
 .hours-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:.82rem}
 .hours-table tr:last-child td{border:none}
 .hours-table tr.today td{background:#fff8f9;font-weight:700}
-.hours-table td.open-cell{color:#16a34a;font-weight:700}
-.hours-table td.closed-cell{color:#9ca3af}
+.open-cell{color:#16a34a;font-weight:700}.closed-cell{color:#9ca3af}
 
-/* HISTORY */
 .history-item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;transition:.2s}
 .history-item:hover{border-color:var(--red)}
 .history-left{display:flex;align-items:center;gap:12px}
@@ -117,12 +128,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
 .history-info h4{font-size:.9rem;font-weight:700;margin-bottom:2px}
 .history-info p{font-size:.76rem;color:var(--sub)}
 .history-right{text-align:right}
-.history-right .swipe-badge{background:#fff5f7;color:var(--red);border:1px solid #fecdd3;border-radius:20px;padding:4px 10px;font-size:.75rem;font-weight:700}
-.history-right p{font-size:.72rem;color:var(--sub);margin-top:4px}
-.rate-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:.7rem;cursor:pointer;margin-top:4px;color:var(--sub);transition:.2s}
+.swipe-badge{background:#fff5f7;color:var(--red);border:1px solid #fecdd3;border-radius:20px;padding:4px 10px;font-size:.75rem;font-weight:700}
+.rate-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:.7rem;cursor:pointer;margin-top:4px;color:var(--sub);display:block;transition:.2s}
 .rate-btn:hover{border-color:var(--red);color:var(--red)}
 
-/* USAGE */
 .usage-hero{background:linear-gradient(135deg,var(--red),#ff2255);border-radius:var(--radius);padding:22px;color:#fff;margin-bottom:18px}
 .usage-hero h3{font-size:.85rem;opacity:.85;margin-bottom:4px}
 .usage-fraction{font-size:3rem;font-weight:900;line-height:1}
@@ -137,40 +146,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
 .hall-usage{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
 .hall-row{padding:14px 16px;border-bottom:1px solid var(--border)}
 .hall-row:last-child{border:none}
-.hall-row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.hall-row-top{display:flex;justify-content:space-between;margin-bottom:8px}
 .hall-name{font-size:.88rem;font-weight:700}
 .hall-count{font-size:.78rem;color:var(--sub)}
 .usage-bar{background:var(--gray);border-radius:10px;height:10px;overflow:hidden}
 .usage-fill{height:100%;border-radius:10px;transition:width .8s}
 .alert-box{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
-.alert-box .icon{font-size:1.2rem}
-.alert-box p{font-size:.82rem;color:#92400e;line-height:1.4}
 
-/* CALENDAR VIEW */
-.week-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:18px}
-.day-cell{background:#fff;border-radius:10px;padding:10px 4px;text-align:center;border:1px solid var(--border);font-size:.7rem}
-.day-cell .day-name{color:var(--sub);font-weight:600;margin-bottom:6px}
-.day-cell .day-dot{width:8px;height:8px;border-radius:50%;margin:2px auto}
-.day-cell .day-dot.swiped{background:var(--red)}
-.day-cell .day-dot.none{background:var(--border)}
-.day-cell.today-cell{border-color:var(--red);background:#fff5f7}
-
-/* CONTACT */
 .contact-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
 .contact-row{display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--border)}
 .contact-row:last-child{border:none}
 .contact-icon-box{width:40px;height:40px;background:var(--gray);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
 .contact-info strong{display:block;font-size:.88rem;margin-bottom:2px}
 .contact-info span{font-size:.78rem;color:var(--sub)}
-.btn-red{background:var(--red);color:#fff;border:none;padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700;transition:.2s}
-.btn-red:hover{background:var(--red2)}
-.btn-outline{background:#fff;color:var(--red);border:2px solid var(--red);padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700;transition:.2s}
-.btn-outline:hover{background:#fff5f7}
-.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:700;margin-right:4px;margin-top:5px}
-.tag.green{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
-.tag.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
-.tag.orange{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa}
-.divider{height:1px;background:var(--border);margin:18px 0}
+.btn-red{background:var(--red);color:#fff;border:none;padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700}
+.btn-outline{background:#fff;color:var(--red);border:2px solid var(--red);padding:12px 22px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:700}
 </style>
 </head>
 <body>
@@ -189,14 +179,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
     <div class="open-pills" id="open-pills"></div>
   </div>
   <div class="sec-title">Dining Halls</div>
-  <div class="sec-sub">Tap a hall to explore its menu and hours</div>
+  <div class="sec-sub">Tap a hall to explore its hours</div>
   <div class="cards" id="hall-cards"></div>
 </div>
 
-<!-- MEAL TYPES -->
+<!-- MEALS -->
 <div id="meal" class="page">
   <div class="sec-title">Meal Types</div>
-  <div class="sec-sub">Browse by time of day and dietary preference</div>
+  <div class="sec-sub">Tap any item to see ingredients & nutrition</div>
   <div class="tabs">
     <button class="tab active" onclick="setMeal('breakfast',this)">🌅 Breakfast</button>
     <button class="tab" onclick="setMeal('lunch',this)">☀️ Lunch</button>
@@ -208,39 +198,26 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
     <button class="filter" onclick="toggleFilter(this,'gluten-free')">🌾 Gluten-Free</button>
     <button class="filter" onclick="toggleFilter(this,'dairy-free')">🥛 Dairy-Free</button>
   </div>
-  <div id="meal-cards" class="cards"></div>
+  <div id="meal-cards" class="meal-grid"></div>
+  <div id="item-detail"></div>
 </div>
 
-<!-- MENU ITEMS -->
-<div id="menu" class="page">
-  <div class="sec-title">Menu Items</div>
-  <div class="sec-sub">Select an item to view nutrition details below</div>
-  <div id="menu-grid" class="menu-grid"></div>
-  <div id="menu-nutrient" style="margin-top:20px"></div>
-</div>
-
-<!-- NUTRIENTS -->
+<!-- NUTRITION -->
 <div id="nutrient" class="page">
   <div class="sec-title">Nutrition Info</div>
   <div class="sec-sub">Detailed breakdown & side-by-side comparison</div>
-  <div class="tabs" style="margin-bottom:12px">
+  <div class="tabs">
     <button class="tab active" onclick="setNMode('single',this)">Single Item</button>
     <button class="tab" onclick="setNMode('compare',this)">Compare 2 Items</button>
   </div>
   <div id="n-single">
-    <div class="filters" id="nutrient-filters" style="margin-bottom:16px"></div>
+    <div class="n-filter-grid" id="nutrient-filters"></div>
     <div id="nutrient-display"></div>
   </div>
   <div id="n-compare" style="display:none">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-      <div>
-        <div class="sec-sub" style="margin-bottom:6px">Item A</div>
-        <div class="filters" id="cmp-a-filters" style="flex-direction:column;gap:5px"></div>
-      </div>
-      <div>
-        <div class="sec-sub" style="margin-bottom:6px">Item B</div>
-        <div class="filters" id="cmp-b-filters" style="flex-direction:column;gap:5px"></div>
-      </div>
+      <div><div class="sec-sub" style="margin-bottom:6px">Item A</div><div class="n-filter-grid" id="cmp-a-filters"></div></div>
+      <div><div class="sec-sub" style="margin-bottom:6px">Item B</div><div class="n-filter-grid" id="cmp-b-filters"></div></div>
     </div>
     <div id="compare-display"></div>
   </div>
@@ -272,8 +249,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
     <div class="usage-meta"><span>62% used</span><span>6 remaining</span></div>
   </div>
   <div id="low-alert"></div>
-  <div class="sec-title" style="margin-bottom:12px">Weekly Calendar</div>
-  <div class="week-cal" id="week-cal"></div>
+  <div style="background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:18px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <button onclick="calNav(-1)" style="background:var(--gray);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:1rem;flex-shrink:0">‹</button>
+      <span id="cal-month-label" style="font-weight:800;font-size:.95rem;color:var(--dark)"></span>
+      <button onclick="calNav(1)" style="background:var(--gray);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:1rem;flex-shrink:0">›</button>
+    </div>
+    <div id="cal-grid" style="display:flex;gap:8px;padding-bottom:4px;scrollbar-width:none"></div>
+  </div>
+  <div id="day-detail" style="display:none;background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:18px;animation:slideUp .2s ease">
+    <div id="day-detail-inner"></div>
+  </div>
   <div class="stat-grid">
     <div class="stat-box"><div class="num">10</div><p>Swipes Used</p></div>
     <div class="stat-box"><div class="num">6</div><p>Remaining</p></div>
@@ -296,7 +282,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
   </div>
   <div class="contact-card" style="padding:18px">
     <strong style="display:block;margin-bottom:8px">Need More Info?</strong>
-    <p style="font-size:.85rem;color:var(--sub);line-height:1.6;margin-bottom:14px">Visit Rutgers Dining Services for full menus, allergen info, and dining plan details. Submit feedback through the student portal.</p>
+    <p style="font-size:.85rem;color:var(--sub);line-height:1.6;margin-bottom:14px">Visit Rutgers Dining Services for full menus, allergen info, and dining plan details.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn-red">🌐 Visit Website</button>
       <button class="btn-outline">📝 Submit Feedback</button>
@@ -304,11 +290,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button class="bn active" onclick="show('home',this)"><span class="icon">🏠</span>Home</button>
   <button class="bn" onclick="show('meal',this)"><span class="icon">🍽</span>Meals</button>
-  <button class="bn" onclick="show('menu',this)"><span class="icon">📋</span>Menu</button>
   <button class="bn" onclick="show('nutrient',this)"><span class="icon">🥦</span>Nutrition</button>
   <button class="bn" onclick="show('hours',this)"><span class="icon">🕐</span>Hours</button>
   <button class="bn" onclick="show('history',this)"><span class="icon">📜</span>History</button>
@@ -317,331 +301,163 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────
-const halls = [
-  {name:'Busch Dining Hall', icon:'🏫', color:'#cc0033',
-   hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
-  {name:'Livingston Dining', icon:'🏛', color:'#e63950',
-   hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
-  {name:'Cook / Douglass',   icon:'🌿', color:'#ff6685',
-   hours:{0:null,1:[8,20],2:[8,20],3:[8,20],4:[8,20],5:[8,20],6:null}},
+const halls=[
+  {name:'Busch Dining Hall',icon:'🏫',sub:'Busch Campus · Piscataway',hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
+  {name:'Livingston Dining', icon:'🏛',sub:'Livingston Campus · New Brunswick',hours:{0:[9,21],1:[7.5,21],2:[7.5,21],3:[7.5,21],4:[7.5,21],5:[7.5,21],6:[9,20]}},
+  {name:'Cook / Douglass',   icon:'🌿',sub:'Cook Campus · New Brunswick',hours:{0:null,1:[8,20],2:[8,20],3:[8,20],4:[8,20],5:[8,20],6:null}},
 ];
-
-const nutrients = {
-  pizza:   {name:'Pizza',    icon:'🍕', cal:285, protein:12, carbs:34, fat:11, fiber:2,  sodium:620},
-  noodles: {name:'Noodles',  icon:'🍜', cal:210, protein:8,  carbs:40, fat:3,  fiber:3,  sodium:480},
-  pasta:   {name:'Pasta',    icon:'🍝', cal:320, protein:14, carbs:52, fat:7,  fiber:4,  sodium:390},
-  chili:   {name:'Chili',    icon:'🌶', cal:250, protein:18, carbs:28, fat:6,  fiber:8,  sodium:710},
-  salad:   {name:'Salad',    icon:'🥗', cal:180, protein:6,  carbs:14, fat:10, fiber:5,  sodium:220},
-  burger:  {name:'Burger',   icon:'🍔', cal:520, protein:28, carbs:44, fat:26, fiber:2,  sodium:890},
-  chicken: {name:'Chicken',  icon:'🍗', cal:340, protein:38, carbs:4,  fat:14, fiber:0,  sodium:510},
-  salmon:  {name:'Salmon',   icon:'🍣', cal:290, protein:34, carbs:0,  fat:16, fiber:0,  sodium:380},
+const hoursData=[
+  {day:'Sunday',   busch:'9 AM – 9 PM',  liv:'9 AM – 9 PM',  cook:'Closed'},
+  {day:'Monday',   busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Tuesday',  busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Wednesday',busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Thursday', busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Friday',   busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
+  {day:'Saturday', busch:'9 AM – 8 PM',  liv:'9 AM – 8 PM',  cook:'Closed'},
+];
+const historyData=[
+  {hall:'Busch',     icon:'🏫',meal:'Lunch',    time:'12:40 PM',day:'Monday',   item:'Pizza 🍕',   rated:false},
+  {hall:'Livingston',icon:'🏛',meal:'Breakfast',time:'10:00 AM',day:'Monday',   item:'Pancakes 🥞',rated:true},
+  {hall:'Busch',     icon:'🏫',meal:'Dinner',   time:'6:30 PM', day:'Saturday', item:'Salmon 🍣',  rated:false},
+  {hall:'Cook/Doug', icon:'🌿',meal:'Lunch',    time:'1:00 PM', day:'Friday',   item:'Salad 🥗',   rated:true},
+  {hall:'Busch',     icon:'🏫',meal:'Breakfast',time:'8:15 AM', day:'Thursday', item:'Waffles 🧇', rated:false},
+  {hall:'Livingston',icon:'🏛',meal:'Dinner',   time:'7:00 PM', day:'Wednesday',item:'Pasta 🍝',   rated:false},
+];
+const allItems={
+  pancakes: {icon:'🥞',name:'Pancakes',      cal:240,protein:6, carbs:42,fat:7, fiber:1,sodium:380,tags:['vegan','dairy-free'],   meal:['breakfast'],desc:'Fluffy buttermilk pancakes',     ingredients:['All-purpose flour','Baking powder','Sugar','Salt','Oat milk','Vegetable oil','Vanilla extract','Maple syrup']},
+  eggs:     {icon:'🥚',name:'Scrambled Eggs',cal:180,protein:14,carbs:2, fat:13,fiber:0,sodium:280,tags:[],                        meal:['breakfast'],desc:'Fresh farm eggs, seasoned',       ingredients:['Farm fresh eggs','Butter','Whole milk','Sea salt','Black pepper','Chives']},
+  oatmeal:  {icon:'🥣',name:'Oatmeal',       cal:150,protein:5, carbs:27,fat:3, fiber:4,sodium:90, tags:['vegan','gluten-free','dairy-free'],meal:['breakfast'],desc:'Steel-cut oats with toppings',ingredients:['Steel-cut oats','Water','Brown sugar','Cinnamon','Raisins','Walnuts','Honey']},
+  waffles:  {icon:'🧇',name:'Waffles',       cal:270,protein:7, carbs:40,fat:10,fiber:1,sodium:420,tags:[],                        meal:['breakfast'],desc:'Belgian-style waffles',           ingredients:['All-purpose flour','Eggs','Buttermilk','Butter','Baking soda','Sugar','Vanilla','Powdered sugar']},
+  fruit:    {icon:'🍌',name:'Fresh Fruit',   cal:80, protein:1, carbs:20,fat:0, fiber:3,sodium:5,  tags:['vegan','gluten-free','dairy-free'],meal:['breakfast'],desc:'Seasonal fruit selection',    ingredients:['Strawberries','Blueberries','Cantaloupe','Watermelon','Grapes','Kiwi']},
+  croissant:{icon:'🥐',name:'Croissant',     cal:230,protein:5, carbs:26,fat:12,fiber:1,sodium:310,tags:['dairy-free'],             meal:['breakfast'],desc:'Buttery flaky croissant',         ingredients:['Bread flour','Yeast','Sugar','Salt','Vegan butter','Water','Egg wash']},
+  pizza:    {icon:'🍕',name:'Pizza',         cal:285,protein:12,carbs:34,fat:11,fiber:2,sodium:620,tags:[],                        meal:['lunch'],    desc:'Margherita & pepperoni slices',   ingredients:['Pizza dough','Tomato sauce','Mozzarella','Basil','Pepperoni','Olive oil','Garlic','Oregano']},
+  burger:   {icon:'🍔',name:'Burger',        cal:520,protein:28,carbs:44,fat:26,fiber:2,sodium:890,tags:[],                        meal:['lunch'],    desc:'Classic beef burger with fries',  ingredients:['Beef patty','Brioche bun','Lettuce','Tomato','Onion','Pickles','American cheese','Ketchup','Mustard']},
+  salad:    {icon:'🥗',name:'Garden Salad',  cal:180,protein:6, carbs:14,fat:10,fiber:5,sodium:220,tags:['vegan','gluten-free','dairy-free'],meal:['lunch'],desc:'Fresh mixed greens',            ingredients:['Romaine lettuce','Cherry tomatoes','Cucumber','Red onion','Carrots','Balsamic vinaigrette']},
+  tacos:    {icon:'🌮',name:'Tacos',         cal:290,protein:16,carbs:30,fat:10,fiber:4,sodium:540,tags:['gluten-free'],           meal:['lunch'],    desc:'Seasoned beef or veggie tacos',   ingredients:['Corn tortillas','Seasoned beef','Shredded lettuce','Pico de gallo','Sour cream','Cheddar cheese','Lime','Cilantro']},
+  noodles:  {icon:'🍜',name:'Noodle Stir Fry',cal:210,protein:8,carbs:40,fat:3,fiber:3,sodium:480,tags:['vegan','dairy-free'],    meal:['lunch'],    desc:'Asian-style stir fried noodles',  ingredients:['Rice noodles','Bok choy','Carrots','Snap peas','Soy sauce','Sesame oil','Ginger','Garlic','Green onion']},
+  falafel:  {icon:'🥙',name:'Falafel Wrap',  cal:380,protein:14,carbs:48,fat:15,fiber:7,sodium:560,tags:['vegan','dairy-free'],   meal:['lunch'],    desc:'Crispy falafel with hummus',      ingredients:['Falafel balls','Whole wheat wrap','Hummus','Lettuce','Tomato','Cucumber','Red onion','Tahini sauce']},
+  pasta:    {icon:'🍝',name:'Pasta Primavera',cal:320,protein:14,carbs:52,fat:7,fiber:4,sodium:390,tags:['vegan','dairy-free'],   meal:['dinner'],   desc:'Seasonal vegetables & marinara',  ingredients:['Penne pasta','Marinara sauce','Zucchini','Bell peppers','Cherry tomatoes','Spinach','Garlic','Olive oil','Basil']},
+  chili:    {icon:'🌶',name:'Chili',         cal:250,protein:18,carbs:28,fat:6, fiber:8,sodium:710,tags:['gluten-free'],          meal:['dinner'],   desc:'Hearty beef and bean chili',      ingredients:['Ground beef','Kidney beans','Black beans','Crushed tomatoes','Onion','Jalapeño','Chili powder','Cumin','Garlic']},
+  chicken:  {icon:'🍗',name:'Roast Chicken', cal:340,protein:38,carbs:4, fat:14,fiber:0,sodium:510,tags:['gluten-free','dairy-free'],meal:['dinner'],desc:'Herb-roasted chicken breast',      ingredients:['Chicken breast','Rosemary','Thyme','Garlic','Olive oil','Lemon','Sea salt','Black pepper','Paprika']},
+  stirfry:  {icon:'🥦',name:'Stir-fry Veg', cal:130,protein:5, carbs:18,fat:5, fiber:5,sodium:310,tags:['vegan','gluten-free','dairy-free'],meal:['dinner'],desc:'Mixed vegetable stir fry',   ingredients:['Broccoli','Snow peas','Mushrooms','Bell peppers','Carrots','Tofu','Soy sauce','Sesame oil','Ginger']},
+  salmon:   {icon:'🍣',name:'Salmon',        cal:290,protein:34,carbs:0, fat:16,fiber:0,sodium:380,tags:['gluten-free','dairy-free'],meal:['dinner'],desc:'Baked Atlantic salmon fillet',     ingredients:['Atlantic salmon','Lemon','Dill','Garlic','Olive oil','Sea salt','Black pepper','Capers']},
+  lentil:   {icon:'🥘',name:'Lentil Soup',   cal:170,protein:11,carbs:28,fat:2, fiber:9,sodium:420,tags:['vegan','gluten-free','dairy-free'],meal:['dinner'],desc:'Spiced red lentil soup',    ingredients:['Red lentils','Vegetable broth','Onion','Garlic','Cumin','Turmeric','Coriander','Tomatoes','Lemon juice']},
 };
-
-const mealData = {
-  breakfast:[
-    {icon:'🥞',name:'Pancakes',  tags:['vegan','dairy-free'],    desc:'Fluffy buttermilk pancakes', cal:240},
-    {icon:'🥚',name:'Scrambled Eggs',tags:[],                   desc:'Fresh farm eggs, seasoned',  cal:180},
-    {icon:'🥣',name:'Oatmeal',   tags:['vegan','gluten-free','dairy-free'],desc:'Steel-cut oats',  cal:150},
-    {icon:'🧇',name:'Waffles',   tags:[],                        desc:'Belgian-style waffles',      cal:270},
-    {icon:'🍌',name:'Fresh Fruit',tags:['vegan','gluten-free','dairy-free'],desc:'Seasonal selection',cal:80},
-    {icon:'🥐',name:'Croissant', tags:['dairy-free'],             desc:'Buttery flaky croissant',   cal:230},
-  ],
-  lunch:[
-    {icon:'🍕',name:'Pizza',      tags:[],                        desc:'Margherita & pepperoni',    cal:285},
-    {icon:'🍔',name:'Burger',     tags:[],                        desc:'Classic beef burger',        cal:520},
-    {icon:'🥗',name:'Garden Salad',tags:['vegan','gluten-free','dairy-free'],desc:'Fresh mixed greens',cal:180},
-    {icon:'🌮',name:'Tacos',      tags:['gluten-free'],           desc:'Beef or veggie tacos',       cal:290},
-    {icon:'🍜',name:'Noodle Stir Fry',tags:['vegan','dairy-free'],desc:'Asian stir fried noodles',  cal:210},
-    {icon:'🥙',name:'Falafel Wrap',tags:['vegan','dairy-free'],   desc:'Crispy falafel, hummus',     cal:380},
-  ],
-  dinner:[
-    {icon:'🍝',name:'Pasta Primavera',tags:['vegan','dairy-free'],desc:'Seasonal veg & marinara',  cal:320},
-    {icon:'🌶',name:'Chili',       tags:['gluten-free'],          desc:'Hearty beef & bean chili',  cal:250},
-    {icon:'🍗',name:'Roast Chicken',tags:['gluten-free','dairy-free'],desc:'Herb-roasted breast',   cal:340},
-    {icon:'🥦',name:'Stir-fry Veg',tags:['vegan','gluten-free','dairy-free'],desc:'Mixed veg',      cal:130},
-    {icon:'🍣',name:'Salmon',      tags:['gluten-free','dairy-free'],desc:'Baked Atlantic salmon',  cal:290},
-    {icon:'🥘',name:'Lentil Soup', tags:['vegan','gluten-free','dairy-free'],desc:'Spiced red lentil',cal:170},
-  ]
+const mealData={
+  breakfast:Object.entries(allItems).filter(([,v])=>v.meal.includes('breakfast')).map(([k,v])=>({key:k,...v})),
+  lunch:    Object.entries(allItems).filter(([,v])=>v.meal.includes('lunch')).map(([k,v])=>({key:k,...v})),
+  dinner:   Object.entries(allItems).filter(([,v])=>v.meal.includes('dinner')).map(([k,v])=>({key:k,...v})),
 };
+const swipeLog={
+  '2026-06-01':[{hall:'Busch',icon:'🏫',meal:'Breakfast',time:'8:10 AM',item:'Oatmeal 🥣'}],
+  '2026-06-03':[{hall:'Livingston',icon:'🏛',meal:'Lunch',time:'12:30 PM',item:'Pizza 🍕'},{hall:'Busch',icon:'🏫',meal:'Dinner',time:'7:00 PM',item:'Chili 🌶'}],
+  '2026-06-05':[{hall:'Cook/Doug',icon:'🌿',meal:'Lunch',time:'1:15 PM',item:'Garden Salad 🥗'}],
+  '2026-06-08':[{hall:'Busch',icon:'🏫',meal:'Breakfast',time:'9:00 AM',item:'Waffles 🧇'}],
+  '2026-06-10':[{hall:'Livingston',icon:'🏛',meal:'Dinner',time:'6:45 PM',item:'Salmon 🍣'},{hall:'Livingston',icon:'🏛',meal:'Lunch',time:'12:00 PM',item:'Tacos 🌮'}],
+  '2026-06-12':[{hall:'Busch',icon:'🏫',meal:'Lunch',time:'12:40 PM',item:'Burger 🍔'}],
+  '2026-06-15':[{hall:'Cook/Doug',icon:'🌿',meal:'Dinner',time:'7:30 PM',item:'Pasta 🍝'}],
+  '2026-06-17':[{hall:'Busch',icon:'🏫',meal:'Breakfast',time:'8:30 AM',item:'Pancakes 🥞'}],
+  '2026-06-19':[{hall:'Livingston',icon:'🏛',meal:'Lunch',time:'1:00 PM',item:'Falafel Wrap 🥙'},{hall:'Busch',icon:'🏫',meal:'Dinner',time:'6:30 PM',item:'Roast Chicken 🍗'}],
+  '2026-06-22':[{hall:'Busch',icon:'🏫',meal:'Lunch',time:'12:40 PM',item:'Noodle Stir Fry 🍜'}],
+};
+const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const _today=new Date();
+let calYear=_today.getFullYear(),calMonth=_today.getMonth(),calWeekStart=_today.getDate()-_today.getDay(),selectedDay=null;
 
-const historyData = [
-  {hall:'Busch',      icon:'🏫', meal:'Lunch',     time:'12:40 PM', day:'Monday',    rated:false},
-  {hall:'Livingston', icon:'🏛', meal:'Breakfast', time:'10:00 AM', day:'Monday',    rated:true},
-  {hall:'Busch',      icon:'🏫', meal:'Dinner',    time:'6:30 PM',  day:'Saturday',  rated:false},
-  {hall:'Cook/Doug',  icon:'🌿', meal:'Lunch',     time:'1:00 PM',  day:'Friday',    rated:true},
-  {hall:'Busch',      icon:'🏫', meal:'Breakfast', time:'8:15 AM',  day:'Thursday',  rated:false},
-  {hall:'Livingston', icon:'🏛', meal:'Dinner',    time:'7:00 PM',  day:'Wednesday', rated:false},
-];
+function getStatus(h){const now=new Date(),hr=now.getHours()+now.getMinutes()/60,day=now.getDay(),r=h.hours[day];if(!r)return'closed';if(hr>=r[0]&&hr<r[1])return'open';if(hr<r[0]&&r[0]-hr<=1)return'soon';return'closed';}
+function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');if(btn)btn.classList.add('active');}
+function updateClock(){document.getElementById('live-time').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
+setInterval(updateClock,1000);updateClock();
 
-const daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const daysFull  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const hoursData = [
-  {day:'Sunday',    busch:'9 AM – 9 PM',  liv:'9 AM – 9 PM',  cook:'Closed'},
-  {day:'Monday',    busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
-  {day:'Tuesday',   busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
-  {day:'Wednesday', busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
-  {day:'Thursday',  busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
-  {day:'Friday',    busch:'7:30 AM – 9 PM',liv:'7:30 AM – 9 PM',cook:'8 AM – 8 PM'},
-  {day:'Saturday',  busch:'9 AM – 8 PM',  liv:'9 AM – 8 PM',  cook:'Closed'},
-];
-
-// ── HELPERS ───────────────────────────────────────────
-function getStatus(hall) {
-  const now = new Date();
-  const h = now.getHours() + now.getMinutes()/60;
-  const day = now.getDay();
-  const range = hall.hours[day];
-  if (!range) return 'closed';
-  if (h >= range[0] && h < range[1]) return 'open';
-  if (h < range[0] && range[0]-h <= 1) return 'soon';
-  return 'closed';
+function renderHome(){
+  document.getElementById('open-pills').innerHTML=halls.map(h=>{const s=getStatus(h),l=s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';return`<div class="open-pill ${s}">${h.icon} ${h.name} · ${l}</div>`;}).join('');
+  const colors=['#ffecef','#fff0f3','#fff5f7'];
+  document.getElementById('hall-cards').innerHTML=halls.map((h,i)=>{const s=getStatus(h),sl=s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';return`<div class="card" onclick="show('hours',document.querySelectorAll('.bn')[3])"><div class="card-banner" style="background:${colors[i]}">${h.icon}</div><div class="card-body"><h3>${h.name}</h3><p>${h.sub}</p><div class="status-label ${s}"><span class="status-dot status-${s}"></span>${sl}</div></div></div>`;}).join('');
 }
 
-function show(id, btn) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (btn) btn.classList.add('active');
+let currentMeal='breakfast',activeFilters=[],selectedItem=null;
+function setMeal(type,btn){currentMeal=type;selectedItem=null;document.querySelectorAll('#meal .tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderMeal();}
+function toggleFilter(btn,key){
+  if(key==='all'){activeFilters=[];document.querySelectorAll('#meal .filter').forEach(f=>f.classList.remove('active'));btn.classList.add('active');}
+  else{document.querySelector('#meal .filter').classList.remove('active');btn.classList.toggle('active');if(btn.classList.contains('active'))activeFilters.push(key);else activeFilters=activeFilters.filter(f=>f!==key);}
+  selectedItem=null;renderMeal();
+}
+function renderMeal(){
+  let items=mealData[currentMeal];
+  if(activeFilters.length)items=items.filter(i=>activeFilters.every(f=>i.tags.includes(f)));
+  document.getElementById('meal-cards').innerHTML=items.map(it=>`<div class="meal-card ${selectedItem===it.key?'selected':''}" onclick="selectItem('${it.key}',this)"><div class="meal-icon">${it.icon}</div><h4>${it.name}</h4><div class="cal">${it.cal} kcal</div><div class="tags">${it.tags.map(t=>`<span class="tag green">${t}</span>`).join('')}</div></div>`).join('')||'<p style="color:var(--sub);padding:20px">No items match filters.</p>';
+  if(selectedItem)renderItemDetail(selectedItem);else document.getElementById('item-detail').innerHTML='';
+}
+function selectItem(key,el){selectedItem=key;document.querySelectorAll('.meal-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');renderItemDetail(key);setTimeout(()=>document.getElementById('item-detail').scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
+function renderItemDetail(key){
+  const it=allItems[key],maxes={cal:600,protein:40,carbs:60,fat:30,fiber:10,sodium:1000};
+  document.getElementById('item-detail').innerHTML=`<div class="item-panel"><div class="item-panel-hero"><div class="info"><h2>${it.name}</h2><p>${it.desc}</p></div><div class="big-icon">${it.icon}</div></div><div class="item-panel-body"><div class="panel-section"><h4>Calories & Macros</h4><div class="macro-row"><div class="macro-box"><div class="val">${it.cal}</div><div class="lbl">Calories</div></div><div class="macro-box"><div class="val">${it.protein}g</div><div class="lbl">Protein</div></div><div class="macro-box"><div class="val">${it.carbs}g</div><div class="lbl">Carbs</div></div></div>${[['Fat','g',it.fat,maxes.fat],['Fiber','g',it.fiber,maxes.fiber],['Sodium','mg',it.sodium,maxes.sodium]].map(([l,u,v,m])=>`<div class="nutrient-bar-row"><span class="lbl">${l}</span><div class="bar-wrap"><div class="bar-fill" style="width:${Math.min(100,v/m*100)}%"></div></div><span class="val">${v}${u}</span></div>`).join('')}</div><div class="panel-section"><h4>Ingredients</h4><div class="ingredient-list">${it.ingredients.map(i=>`<span class="ingredient-pill">${i}</span>`).join('')}</div></div>${it.tags.length?`<div class="panel-section"><h4>Dietary</h4>${it.tags.map(t=>`<span class="tag green">${t}</span>`).join('')}</div>`:''}</div></div>`;
 }
 
-// ── LIVE CLOCK ────────────────────────────────────────
-function updateClock() {
-  const now = new Date();
-  document.getElementById('live-time').textContent =
-    now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+let currentN='pizza',cmpA='pizza',cmpB='burger',nMode='single';
+const allKeys=Object.keys(allItems);
+function buildNutrientCard(key){
+  const n=allItems[key],maxes={cal:600,protein:40,carbs:60,fat:30,fiber:10,sodium:1000};
+  return`<div class="nutrient-hero"><div><div style="font-size:1rem;opacity:.8">${n.name} ${n.icon}</div><div class="big">${n.cal}</div><div class="label">kcal per serving</div></div><div style="font-size:4rem">${n.icon}</div></div><div class="nutrient-macro-grid"><div class="macro-box2"><div class="val">${n.protein}g</div><div class="lbl">Protein</div></div><div class="macro-box2"><div class="val">${n.carbs}g</div><div class="lbl">Carbs</div></div><div class="macro-box2"><div class="val">${n.fat}g</div><div class="lbl">Fat</div></div></div><div class="nutrient-extra">${[['Calories','kcal',n.cal,maxes.cal],['Dietary Fiber','g',n.fiber,maxes.fiber],['Sodium','mg',n.sodium,maxes.sodium]].map(([l,u,v,m])=>`<div class="nutrient-row"><span style="min-width:110px;font-size:.82rem">${l}</span><div class="nutrient-bar-wrap"><div class="nutrient-bar" style="width:${Math.min(100,v/m*100)}%"></div></div><span class="nutrient-val">${v}${u}</span></div>`).join('')}</div>`;
 }
-setInterval(updateClock,1000); updateClock();
-
-// ── HOME ──────────────────────────────────────────────
-function renderHome() {
-  // Pills
-  const pills = document.getElementById('open-pills');
-  pills.innerHTML = halls.map(h=>{
-    const s = getStatus(h);
-    const label = s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';
-    return `<div class="open-pill ${s}">${h.icon} ${h.name} · ${label}</div>`;
-  }).join('');
-
-  // Hall cards
-  const colors = ['#ffecef','#fff0f3','#fff5f7'];
-  document.getElementById('hall-cards').innerHTML = halls.map((h,i)=>{
-    const s = getStatus(h);
-    const sLabel = s==='open'?'Open Now':s==='soon'?'Opens Soon':'Closed';
-    return `<div class="card" onclick="show('hours',document.querySelectorAll('.bn')[4])">
-      <div class="card-banner" style="background:${colors[i]}">${h.icon}</div>
-      <div class="card-body">
-        <h3>${h.name}</h3>
-        <p>${h.hours[new Date().getDay()]?`${h.hours[new Date().getDay()][0]}:00 – closes ${h.hours[new Date().getDay()][1]}:00`:'Closed today'}</p>
-        <div class="status-label ${s}"><span class="status-dot status-${s}"></span>${sLabel}</div>
-      </div></div>`;
-  }).join('');
+function setNMode(mode,btn){nMode=mode;document.querySelectorAll('#nutrient .tabs .tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('n-single').style.display=mode==='single'?'block':'none';document.getElementById('n-compare').style.display=mode==='compare'?'block':'none';if(mode==='compare')renderCompare();}
+function renderNutrientPage(){
+  document.getElementById('nutrient-filters').innerHTML=allKeys.map(k=>`<div class="n-filter-btn ${k===currentN?'active':''}" onclick="setNutrient('${k}',this)"><span class="fi">${allItems[k].icon}</span>${allItems[k].name}</div>`).join('');
+  document.getElementById('nutrient-display').innerHTML=buildNutrientCard(currentN);
+  ['a','b'].forEach(side=>{document.getElementById(`cmp-${side}-filters`).innerHTML=allKeys.map(k=>{const sel=side==='a'?cmpA:cmpB;return`<div class="n-filter-btn ${k===sel?'active':''}" onclick="setCmp('${side}','${k}',this)" style="font-size:.72rem;padding:6px"><span class="fi" style="font-size:1.1rem">${allItems[k].icon}</span>${allItems[k].name}</div>`;}).join('');});
 }
-
-// ── MEAL TYPES ────────────────────────────────────────
-let currentMeal = 'breakfast', activeFilters = [];
-function setMeal(type,btn) {
-  currentMeal = type;
-  document.querySelectorAll('#meal .tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active'); renderMeal();
-}
-function toggleFilter(btn,key) {
-  if (key==='all') {
-    activeFilters=[];
-    document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));
-    btn.classList.add('active');
-  } else {
-    document.querySelector('.filter').classList.remove('active');
-    btn.classList.toggle('active');
-    if (btn.classList.contains('active')) activeFilters.push(key);
-    else activeFilters = activeFilters.filter(f=>f!==key);
-  }
-  renderMeal();
-}
-function renderMeal() {
-  let items = mealData[currentMeal];
-  if (activeFilters.length) items = items.filter(i=>activeFilters.every(f=>i.tags.includes(f)));
-  document.getElementById('meal-cards').innerHTML = items.map(i=>`
-    <div class="card">
-      <div class="card-banner" style="background:#fff8f9;font-size:2.8rem">${i.icon}</div>
-      <div class="card-body">
-        <h3>${i.name}</h3>
-        <p>${i.desc} · <strong>${i.cal} kcal</strong></p>
-        <div>${i.tags.map(t=>`<span class="tag green">${t}</span>`).join('')}</div>
-      </div></div>`).join('')||'<p style="color:var(--sub);padding:20px">No items match filters.</p>';
-}
-
-// ── MENU ──────────────────────────────────────────────
-let selectedMenu = 'pizza';
-function renderMenuPage() {
-  const keys = Object.keys(nutrients);
-  document.getElementById('menu-grid').innerHTML = keys.map(k=>`
-    <div class="menu-card ${k===selectedMenu?'selected':''}" onclick="selectMenu('${k}',this)">
-      <div class="menu-icon">${nutrients[k].icon}</div>
-      <h4>${nutrients[k].name}</h4>
-      <p>${nutrients[k].cal} kcal</p>
-    </div>`).join('');
-  renderMenuNutrient();
-}
-function selectMenu(k,el) {
-  selectedMenu=k;
-  document.querySelectorAll('.menu-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  renderMenuNutrient();
-}
-function renderMenuNutrient() {
-  document.getElementById('menu-nutrient').innerHTML = buildNutrientCard(nutrients[selectedMenu]);
-}
-
-// ── NUTRITION ─────────────────────────────────────────
-let currentN='pizza', cmpA='pizza', cmpB='burger', nMode='single';
-
-function buildNutrientCard(n) {
-  const maxes = {cal:600,protein:40,carbs:60,fat:30,fiber:10,sodium:1000};
-  return `
-    <div class="nutrient-hero">
-      <div><div style="font-size:1rem;opacity:.8">${n.name} ${n.icon}</div><div class="big">${n.cal}</div><div class="label">kcal per serving</div></div>
-      <div style="font-size:4rem">${n.icon}</div>
-    </div>
-    <div class="nutrient-macro-grid">
-      <div class="macro-box"><div class="val">${n.protein}g</div><div class="lbl">Protein</div></div>
-      <div class="macro-box"><div class="val">${n.carbs}g</div><div class="lbl">Carbs</div></div>
-      <div class="macro-box"><div class="val">${n.fat}g</div><div class="lbl">Fat</div></div>
-    </div>
-    <div class="nutrient-extra">
-      ${[['Calories','kcal',n.cal,maxes.cal],['Dietary Fiber','g',n.fiber,maxes.fiber],['Sodium','mg',n.sodium,maxes.sodium]]
-        .map(([l,u,v,m])=>`<div class="nutrient-row">
-          <span style="min-width:110px;font-size:.82rem">${l}</span>
-          <div class="nutrient-bar-wrap"><div class="nutrient-bar" style="width:${Math.min(100,v/m*100)}%"></div></div>
-          <span class="nutrient-val">${v}${u}</span></div>`).join('')}
-    </div>`;
-}
-
-function setNMode(mode,btn) {
-  nMode=mode;
-  document.querySelectorAll('#nutrient .tabs .tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('n-single').style.display = mode==='single'?'block':'none';
-  document.getElementById('n-compare').style.display = mode==='compare'?'block':'none';
-  if (mode==='compare') renderCompare();
-}
-
-function renderNutrientPage() {
-  const keys = Object.keys(nutrients);
-  document.getElementById('nutrient-filters').innerHTML = keys.map(k=>`
-    <button class="filter ${k===currentN?'active':''}" onclick="setNutrient('${k}',this)">${nutrients[k].icon} ${nutrients[k].name}</button>`).join('');
-  document.getElementById('nutrient-display').innerHTML = buildNutrientCard(nutrients[currentN]);
-
-  // Compare selectors
-  ['a','b'].forEach(side=>{
-    document.getElementById(`cmp-${side}-filters`).innerHTML = keys.map(k=>{
-      const sel = side==='a'?cmpA:cmpB;
-      return `<button class="filter ${k===sel?'active':''}" style="font-size:.75rem;padding:5px 10px" onclick="setCmp('${side}','${k}',this)">${nutrients[k].icon} ${nutrients[k].name}</button>`;
-    }).join('');
-  });
-}
-function setNutrient(k,btn) {
-  currentN=k;
-  document.querySelectorAll('#nutrient-filters .filter').forEach(f=>f.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('nutrient-display').innerHTML = buildNutrientCard(nutrients[k]);
-}
-function setCmp(side,k,btn) {
-  if(side==='a') cmpA=k; else cmpB=k;
-  document.querySelectorAll(`#cmp-${side}-filters .filter`).forEach(f=>f.classList.remove('active'));
-  btn.classList.add('active');
-  renderCompare();
-}
-function renderCompare() {
-  const a=nutrients[cmpA],b=nutrients[cmpB];
+function setNutrient(k,btn){currentN=k;document.querySelectorAll('#nutrient-filters .n-filter-btn').forEach(f=>f.classList.remove('active'));btn.classList.add('active');document.getElementById('nutrient-display').innerHTML=buildNutrientCard(k);}
+function setCmp(side,k,btn){if(side==='a')cmpA=k;else cmpB=k;document.querySelectorAll(`#cmp-${side}-filters .n-filter-btn`).forEach(f=>f.classList.remove('active'));btn.classList.add('active');renderCompare();}
+function renderCompare(){
+  const a=allItems[cmpA],b=allItems[cmpB];
   const fields=[['cal','Calories','kcal',false],['protein','Protein','g',true],['carbs','Carbs','g',false],['fat','Fat','g',false],['fiber','Fiber','g',true],['sodium','Sodium','mg',false]];
-  document.getElementById('compare-display').innerHTML=`
-    <div class="compare-grid">
-      <div class="compare-col"><h4>${a.icon} ${a.name}</h4>
-        ${fields.map(([f,l,u,higher])=>{
-          const win = higher?(a[f]>=b[f]):(a[f]<=b[f]);
-          return `<div class="compare-row"><span>${l}</span><span class="${win?'better':'worse'}">${a[f]}${u}</span></div>`;
-        }).join('')}
-      </div>
-      <div class="compare-col"><h4>${b.icon} ${b.name}</h4>
-        ${fields.map(([f,l,u,higher])=>{
-          const win = higher?(b[f]>=a[f]):(b[f]<=a[f]);
-          return `<div class="compare-row"><span>${l}</span><span class="${win?'better':'worse'}">${b[f]}${u}</span></div>`;
-        }).join('')}
-      </div>
-    </div>`;
+  document.getElementById('compare-display').innerHTML=`<div class="compare-grid"><div class="compare-col"><h4>${a.icon} ${a.name}</h4>${fields.map(([f,l,u,h])=>{const w=h?(a[f]>=b[f]):(a[f]<=b[f]);return`<div class="compare-row"><span>${l}</span><span class="${w?'better':'worse'}">${a[f]}${u}</span></div>`;}).join('')}</div><div class="compare-col"><h4>${b.icon} ${b.name}</h4>${fields.map(([f,l,u,h])=>{const w=h?(b[f]>=a[f]):(b[f]<=a[f]);return`<div class="compare-row"><span>${l}</span><span class="${w?'better':'worse'}">${b[f]}${u}</span></div>`;}).join('')}</div></div>`;
 }
 
-// ── HOURS ─────────────────────────────────────────────
-function renderHours() {
-  const today = new Date().getDay();
-  document.getElementById('hours-body').innerHTML = hoursData.map((r,i)=>{
-    const isToday = i===today;
-    const cc = (v)=> v==='Closed'?'closed-cell':'open-cell';
-    return `<tr class="${isToday?'today-cell':''}">
-      <td>${r.day}${isToday?' 📍':''}</td>
-      <td class="${cc(r.busch)}">${r.busch}</td>
-      <td class="${cc(r.liv)}">${r.liv}</td>
-      <td class="${cc(r.cook)}">${r.cook}</td></tr>`;
-  }).join('');
-}
-
-// ── HISTORY ───────────────────────────────────────────
-function renderHistory() {
-  document.getElementById('history-list').innerHTML = historyData.map((h,i)=>`
-    <div class="history-item">
-      <div class="history-left">
-        <div class="history-icon">${h.icon}</div>
-        <div class="history-info"><h4>${h.hall}</h4><p>${h.day} · ${h.meal} · ${h.time}</p></div>
-      </div>
-      <div class="history-right">
-        <div class="swipe-badge">1 Swipe</div>
-        <p>${h.meal}</p>
-        ${h.rated?'<div style="font-size:.72rem;color:#f59e0b">⭐ Rated</div>':`<button class="rate-btn" onclick="rateItem(${i},this)">⭐ Rate</button>`}
-      </div>
-    </div>`).join('');
-}
-function rateItem(i,btn) {
-  historyData[i].rated=true;
-  btn.outerHTML='<div style="font-size:.72rem;color:#f59e0b">⭐ Rated</div>';
-}
-
-// ── USAGE ─────────────────────────────────────────────
-function renderUsage() {
-  setTimeout(()=>{document.getElementById('main-prog').style.width='62%'},100);
-
-  // Low swipe alert
-  const remaining=6, total=16;
-  document.getElementById('low-alert').innerHTML = remaining/total < 0.4 ?
-    `<div class="alert-box"><span class="icon">⚠️</span><p>You're running low on swipes — only <strong>${remaining}</strong> left this week. Consider reducing visits or contacting dining services.</p></div>` : '';
-
-  // Week calendar
-  const swipedDays=[1,3,4];
+function renderHours(){
   const today=new Date().getDay();
-  document.getElementById('week-cal').innerHTML = daysShort.map((d,i)=>`
-    <div class="day-cell ${i===today?'today-cell':''}">
-      <div class="day-name">${d}</div>
-      <div class="day-dot ${swipedDays.includes(i)?'swiped':'none'}"></div>
-    </div>`).join('');
-
-  // Hall bars
-  const hallStats=[{name:'Busch',icon:'🏫',used:18,total:24,color:'#cc0033'},{name:'Livingston',icon:'🏛',used:14,total:24,color:'#e63950'},{name:'Cook/Douglass',icon:'🌿',used:10,total:24,color:'#ff6685'}];
-  document.getElementById('hall-usage').innerHTML = hallStats.map(h=>`
-    <div class="hall-row">
-      <div class="hall-row-top">
-        <span class="hall-name">${h.icon} ${h.name}</span>
-        <span class="hall-count">${h.used} / ${h.total} visits</span>
-      </div>
-      <div class="usage-bar"><div class="usage-fill" style="width:0%;background:${h.color}" data-w="${Math.round(h.used/h.total*100)}"></div></div>
-    </div>`).join('');
-  setTimeout(()=>{
-    document.querySelectorAll('.usage-fill').forEach(el=>{el.style.width=el.dataset.w+'%'});
-  },120);
+  document.getElementById('hours-body').innerHTML=hoursData.map((r,i)=>`<tr class="${i===today?'today':''}"><td>${r.day}${i===today?' 📍':''}</td><td class="${r.busch==='Closed'?'closed-cell':'open-cell'}">${r.busch}</td><td class="${r.liv==='Closed'?'closed-cell':'open-cell'}">${r.liv}</td><td class="${r.cook==='Closed'?'closed-cell':'open-cell'}">${r.cook}</td></tr>`).join('');
 }
 
-// ── INIT ──────────────────────────────────────────────
-renderHome(); renderMeal(); renderMenuPage();
-renderNutrientPage(); renderHours(); renderHistory(); renderUsage();
+function renderHistory(){
+  document.getElementById('history-list').innerHTML=historyData.map((h,i)=>`<div class="history-item"><div class="history-left"><div class="history-icon">${h.icon}</div><div class="history-info"><h4>${h.item}</h4><p>${h.hall} · ${h.day} · ${h.meal}</p><p style="font-size:.72rem;color:var(--sub)">${h.time}</p></div></div><div class="history-right"><div class="swipe-badge">1 Swipe</div>${h.rated?'<div style="font-size:.72rem;color:#f59e0b;margin-top:4px">⭐ Rated</div>':`<button class="rate-btn" onclick="rateItem(${i},this)">⭐ Rate</button>`}</div></div>`).join('');
+}
+function rateItem(i,btn){historyData[i].rated=true;btn.outerHTML='<div style="font-size:.72rem;color:#f59e0b;margin-top:4px">⭐ Rated</div>';}
+
+function calNav(dir){const ref=new Date(calYear,calMonth,calWeekStart);ref.setDate(ref.getDate()+dir*7);calYear=ref.getFullYear();calMonth=ref.getMonth();calWeekStart=ref.getDate();selectedDay=null;renderCal();}
+function renderCal(){
+  const today=new Date(),days=[];
+  for(let i=0;i<7;i++){const d=new Date(calYear,calMonth,calWeekStart+i);days.push(d);}
+  const first=days[0],last=days[6],same=first.getMonth()===last.getMonth();
+  document.getElementById('cal-month-label').textContent=same?`${monthNames[first.getMonth()]} ${first.getFullYear()}`:`${monthNames[first.getMonth()].slice(0,3)} – ${monthNames[last.getMonth()].slice(0,3)} ${last.getFullYear()}`;
+  const dl=['S','M','T','W','T','F','S'];
+  document.getElementById('cal-grid').innerHTML=days.map(d=>{
+    const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const sw=swipeLog[key]||[],isToday=d.toDateString()===today.toDateString(),isSel=selectedDay===key;
+    return`<div onclick="selectDay('${key}')" style="flex:0 0 calc((100% - 48px)/7);min-width:44px;text-align:center;padding:10px 4px 8px;border-radius:12px;cursor:pointer;border:2px solid ${isSel?'var(--red)':isToday?'#fecdd3':'transparent'};background:${isSel?'#fff5f7':isToday?'#fff0f2':'var(--gray)'};transition:.15s"><div style="font-size:.65rem;font-weight:700;color:var(--sub);margin-bottom:6px">${dl[d.getDay()]}</div><div style="font-size:.88rem;font-weight:${isToday||isSel?800:500};color:${isSel?'var(--red)':isToday?'var(--red)':'var(--dark)'}">${d.getDate()}</div><div style="margin-top:6px;display:flex;flex-direction:column;align-items:center;gap:2px">${sw.length>0?sw.map(()=>`<div style="width:6px;height:6px;border-radius:50%;background:var(--red)"></div>`).join(''):'<div style="width:6px;height:6px"></div>'}</div></div>`;
+  }).join('');
+  renderDayDetail();
+}
+function selectDay(key){selectedDay=selectedDay===key?null:key;renderCal();}
+function renderDayDetail(){
+  const panel=document.getElementById('day-detail');
+  if(!selectedDay){panel.style.display='none';return;}
+  const sw=swipeLog[selectedDay]||[];
+  const [y,m,d]=selectedDay.split('-');
+  const label=new Date(y,m-1,d).toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});
+  panel.style.display='block';
+  document.getElementById('day-detail-inner').innerHTML=`<div style="background:linear-gradient(135deg,var(--red),#ff2255);padding:14px 18px;color:#fff;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.75rem;opacity:.8">Selected Date</div><div style="font-weight:800;font-size:1rem">${label}</div></div><div style="background:rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;text-align:center"><div style="font-size:1.5rem;font-weight:900">${sw.length}</div><div style="font-size:.7rem;opacity:.85">swipe${sw.length!==1?'s':''}</div></div></div><div style="padding:14px">${sw.length===0?`<div style="text-align:center;padding:20px;color:var(--sub);font-size:.88rem">No swipes on this day 🍽</div>`:sw.map(s=>`<div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--gray);border-radius:10px;margin-bottom:8px"><div style="font-size:1.8rem;background:#fff;border-radius:10px;padding:8px;line-height:1">${s.icon}</div><div style="flex:1"><div style="font-weight:700;font-size:.88rem">${s.hall}</div><div style="font-size:.76rem;color:var(--sub)">${s.meal} · ${s.time}</div><div style="font-size:.76rem;color:var(--red);font-weight:600;margin-top:2px">${s.item}</div></div><div style="background:#fff5f7;color:var(--red);border:1px solid #fecdd3;border-radius:20px;padding:4px 10px;font-size:.72rem;font-weight:700">1 Swipe</div></div>`).join('')}</div>`;
+}
+function renderUsage(){
+  setTimeout(()=>{document.getElementById('main-prog').style.width='62%'},100);
+  document.getElementById('low-alert').innerHTML=`<div class="alert-box"><span style="font-size:1.2rem">⚠️</span><p style="font-size:.82rem;color:#92400e;line-height:1.4">You're running low — only <strong>6 swipes</strong> left this week.</p></div>`;
+  renderCal();
+  const hallStats=[{name:'Busch',icon:'🏫',used:18,total:24,color:'#cc0033'},{name:'Livingston',icon:'🏛',used:14,total:24,color:'#e63950'},{name:'Cook/Douglass',icon:'🌿',used:10,total:24,color:'#ff6685'}];
+  document.getElementById('hall-usage').innerHTML=hallStats.map(h=>`<div class="hall-row"><div class="hall-row-top"><span class="hall-name">${h.icon} ${h.name}</span><span class="hall-count">${h.used}/${h.total} visits</span></div><div class="usage-bar"><div class="usage-fill" style="width:0%;background:${h.color}" data-w="${Math.round(h.used/h.total*100)}"></div></div></div>`).join('');
+  setTimeout(()=>{document.querySelectorAll('.usage-fill').forEach(el=>{el.style.width=el.dataset.w+'%'})},120);
+}
+
+renderHome();renderMeal();renderNutrientPage();renderHours();renderHistory();renderUsage();
 </script>
 </body>
 </html>
